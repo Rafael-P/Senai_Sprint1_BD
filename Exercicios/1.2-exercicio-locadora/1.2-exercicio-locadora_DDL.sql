@@ -1,4 +1,4 @@
---comandos DDL
+--comandos DDL Data Definition Language
 
 --cria um banco de dados chamado Locadora
 create database Locadora;
