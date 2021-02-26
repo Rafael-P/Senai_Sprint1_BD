@@ -2,4 +2,3 @@
 
 use Locadora;
 
-select * from Cliente;

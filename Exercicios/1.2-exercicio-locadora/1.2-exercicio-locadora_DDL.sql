@@ -1,57 +1,48 @@
---comandos DDL Data Definition Language
+-- comandos DDL Data Definition Language
 
---cria um banco de dados chamado Locadora
 create database Locadora;
 
---define que o banco de dados Locadora sera usado
 use Locadora;
 
---cria tabela com o nome Marca
-create table Marca
+create table Empresas
+(
+	idEmpresa	int		primary key		identity
+	,Nome		varchar(20)		not null
+);
+
+create table Marcas
 (
 	idMarca		int		primary key		identity
-	,Marca		varchar(50)		not null
+	,Nome		varchar(20)		not null
 );
 
---cria tabela com o nome Modelos 
-create table Modelo
+create table Clientes
 (
-	idModelo		int		primary key		identity
-	,Modelo			varchar(30)		not null
-	,Cor			varchar(20)		not null
-	,idMarca		int		foreign key		references Marca(idMarca)	
+	idCliente	int		primary key		identity
+	,Nome		varchar(50)		not null
+	,CPF		varchar(20)		not null
 );
 
---cria uma tabela com o nome Cliente
-create table Cliente
+create table Modelos
 (
-	idCliente		int		primary key		identity
-	,Nome			varchar(30)		not null
-	,CPF			varchar(14)		not null
+	idModelo	int		primary key		identity
+	,Nome		varchar(20)		not null
+	,idMarca	int		foreign key		references Marcas(idMarca)
 );
 
---cria uma tabela com o nome Aluguel
-create table Aluguel
+create table Veiculos
 (
-	idAluguel		int		primary key		identity
-	,DataDeRetirada	varchar(20)		not null
-	,idCliente		int		foreign key		references Cliente(idCliente)
+	idVeiculo	int		primary key		identity
+	,idModelo	int		foreign key		references Modelos(idModelo)
+	,Placa		varchar(20)		not null
+	,idEmpresa	int		foreign key		references Empresas(idEmpresa)
 );
 
---cria uma tabela com o nome Veiculo
-create table Veiculo
+create table Alugueis
 (
-	idVeiculo		int		primary key		identity
-	,Placa			int		not null
-	,idModelo		int		foreign key		references Modelo(idModelo)
-	,idAluguel		int		foreign key		references Aluguel(idAluguel)
-);
-
---cria uma tabela com o nome Locadora
-create table Locadora
-(
-	idLocadora		int		primary key		identity
-	,Telefone		int		not null
-	,Endereco		varchar(100)	not null
-	,idVeiculo		int		foreign key		references Veiculo(idVeiculo)
+	idAluguel	int		primary key		identity
+	,idCliente	int		foreign key		references Clientes(idCliente)
+	,idVeiculo	int		foreign key		references Veiculos(idVeiculo)
+	,DataInicio	varchar(20)		not null
+	,DataFim	varchar(20)		not null
 );
